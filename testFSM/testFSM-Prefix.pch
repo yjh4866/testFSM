@@ -14,6 +14,9 @@
 #endif
 
 
+#define Color_EvenRowCell [UIColor colorWithWhite:1.0f*0xee/0xff alpha:1.0f]
+#define Color_OddRowCell  [UIColor colorWithWhite:1.0f*0xff/0xff alpha:1.0f]
+
 
 #ifdef DEBUG
 

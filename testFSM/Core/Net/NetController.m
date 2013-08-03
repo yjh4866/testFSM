@@ -13,13 +13,25 @@
 
 
 #define LOCALNET
-//#undef LOCALNET
+#undef LOCALNET
 
-#define HOST_Interface     @"http://dp.sina.cn/interface/f/blog/"
+#ifdef LOCALNET
+#define HOST_Interface     @"http://192.168.1.110/interface/"
+#else
+#define HOST_Interface     @"http://dp.sina.cn/interface/"
+#endif
+
+
+#define ArticleUrl        HOST_Interface @"article_read.php?articleid=%@"
 
 
 typedef NS_ENUM(NSUInteger, NetRequestType) {
-    NetRequestType_None, 
+    NetRequestType_None,
+};
+typedef NS_ENUM(NSInteger, DownloadFileType) {
+    DownloadFileType_None,
+    DownloadFileType_Avatar,
+    DownloadFileType_Picture,
 };
 
 @interface NetController () <HTTPConnectionDelegate, DLConnectionDelegate> {
@@ -56,6 +68,18 @@ typedef NS_ENUM(NSUInteger, NetRequestType) {
 
 
 #pragma mark - Public
+
+/**
+ *	@brief	下载图片
+ *
+ *	@param 	picPath 	图片保存路径
+ *	@param 	picUrl 	图片url
+ */
+- (void)downloadPicture:(NSString *)picPath withUrl:(NSString *)picUrl
+{
+    NSDictionary *dicParam = @{@"type": [NSNumber numberWithInt:DownloadFileType_Picture]};
+    [_downloadConnection downloadFile:picPath from:picUrl withParam:dicParam];
+}
 
 
 #pragma mark - HTTPConnectionDelegate
@@ -117,6 +141,15 @@ typedef NS_ENUM(NSUInteger, NetRequestType) {
             withPath:(NSString *)filePath url:(NSString *)url
             andParam:(NSDictionary *)dicParam
 {
+    DownloadFileType type = [[dicParam objectForKey:@"type"] intValue];
+    if (DownloadFileType_Avatar == type) {
+    }
+    else if (DownloadFileType_Picture == type) {
+        if ([self.delegate respondsToSelector:@selector(netController:downloadPictureError:withUrl:)]) {
+            [self.delegate netController:self
+                    downloadPictureError:error withUrl:url];
+        }
+    }
 }
 
 // 得到文件实际大小
@@ -124,6 +157,12 @@ typedef NS_ENUM(NSUInteger, NetRequestType) {
             withPath:(NSString *)filePath url:(NSString *)url
             andParam:(NSDictionary *)dicParam
 {
+    DownloadFileType type = [[dicParam objectForKey:@"type"] intValue];
+    if (DownloadFileType_Picture == type) {
+        if ([self.delegate respondsToSelector:@selector(netController:fileSize:withUrl:)]) {
+            [self.delegate netController:self fileSize:fileSize withUrl:url];
+        }
+    }
 }
 
 // 收到的数据发生变化
@@ -131,12 +170,30 @@ typedef NS_ENUM(NSUInteger, NetRequestType) {
             withPath:(NSString *)filePath url:(NSString *)url
             andParam:(NSDictionary *)dicParam
 {
+    DownloadFileType type = [[dicParam objectForKey:@"type"] intValue];
+    if (DownloadFileType_Picture == type) {
+        if ([self.delegate respondsToSelector:@selector(netController:receivedSize:withUrl:)]) {
+            [self.delegate netController:self receivedSize:receivedSize
+                                 withUrl:url];
+        }
+    }
 }
 
 // 下载完成
 - (void)dlConnection:(DLConnection *)dlConnection finishedWithPath:(NSString *)filePath
-              url:(NSString *)url andParam:(NSDictionary *)dicParam
+                 url:(NSString *)url andParam:(NSDictionary *)dicParam
 {
+    DownloadFileType type = [[dicParam objectForKey:@"type"] intValue];
+    if (DownloadFileType_Avatar == type) {
+    }
+    else if (DownloadFileType_Picture == type) {
+        if ([self.delegate respondsToSelector:@selector(netController:downloadPictureWithUrl:)]) {
+            [self.delegate netController:self downloadPictureWithUrl:url];
+        }
+    }
 }
+
+
+#pragma mark - ()
 
 @end

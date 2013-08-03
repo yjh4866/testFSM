@@ -11,13 +11,18 @@
 
 //Root
 #import "RootViewController.h"
+//
+#import "LocalArticleVC.h"
+#import "ArticleDetailVC.h"
 
 
 @class CoreEngine;
 
-@interface UIEngine : NSObject <RootVCDelegate>
+@interface UIEngine : NSObject <RootVCDelegate,
+LocalArticleVCDataSource, LocalArticleVCDelegate,
+ArticleDetailVCDataSource, ArticleDetailVCDelegate>
 
 @property (nonatomic, readonly) UIViewController *rootViewController;
-@property (nonatomic, retain) CoreEngine *engineCore;
+@property (nonatomic, retain) CoreEngine *coreEngine;
 
 @end

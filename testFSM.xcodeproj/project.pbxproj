@@ -55,6 +55,18 @@
 		B189318217AD337600EFA3E2 /* UIView+Badge.m in Sources */ = {isa = PBXBuildFile; fileRef = B189318117AD337600EFA3E2 /* UIView+Badge.m */; };
 		B189318517AD337600EFA3E2 /* UIView+MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B189318417AD337600EFA3E2 /* UIView+MBProgressHUD.m */; };
 		B189318817AD337600EFA3E2 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B189318717AD337600EFA3E2 /* RootViewController.m */; };
+		B189319017AD338600EFA3E2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B189318F17AD338600EFA3E2 /* libsqlite3.dylib */; };
+		B189319717AD351A00EFA3E2 /* ArticleDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B189319617AD351A00EFA3E2 /* ArticleDetailVC.m */; };
+		B189319B17AD355F00EFA3E2 /* ArticleDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = B189319A17AD355F00EFA3E2 /* ArticleDetailView.m */; };
+		B189319F17AD35A100EFA3E2 /* ArticleDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = B189319E17AD35A100EFA3E2 /* ArticleDetail.m */; };
+		B18931A217AD35F200EFA3E2 /* ScrollLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = B18931A117AD35F200EFA3E2 /* ScrollLabelView.m */; };
+		B18931A717AD361D00EFA3E2 /* ArticlePicView.m in Sources */ = {isa = PBXBuildFile; fileRef = B18931A417AD361D00EFA3E2 /* ArticlePicView.m */; };
+		B18931A817AD361D00EFA3E2 /* ArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B18931A617AD361D00EFA3E2 /* ArticleView.m */; };
+		B18931B117AD3B2500EFA3E2 /* LocalArticleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B18931B017AD3B2500EFA3E2 /* LocalArticleVC.m */; };
+		B18931B417AD3BAD00EFA3E2 /* DBController+Article.m in Sources */ = {isa = PBXBuildFile; fileRef = B18931B317AD3BAD00EFA3E2 /* DBController+Article.m */; };
+		B18931B717AD3C6F00EFA3E2 /* LocalArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B18931B617AD3C6F00EFA3E2 /* LocalArticleView.m */; };
+		B18931BA17AD405300EFA3E2 /* ArticleParagraph.m in Sources */ = {isa = PBXBuildFile; fileRef = B18931B917AD405300EFA3E2 /* ArticleParagraph.m */; };
+		B18931BC17AD408A00EFA3E2 /* parser.doc in Resources */ = {isa = PBXBuildFile; fileRef = B18931BB17AD408900EFA3E2 /* parser.doc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +159,28 @@
 		B189318617AD337600EFA3E2 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = UI/RootViewController.h; sourceTree = "<group>"; };
 		B189318717AD337600EFA3E2 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = UI/RootViewController.m; sourceTree = "<group>"; };
 		B189318917AD337600EFA3E2 /* UIMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UIMacro.h; path = UI/UIMacro.h; sourceTree = "<group>"; };
+		B189318F17AD338600EFA3E2 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		B189319517AD351A00EFA3E2 /* ArticleDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleDetailVC.h; sourceTree = "<group>"; };
+		B189319617AD351A00EFA3E2 /* ArticleDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleDetailVC.m; sourceTree = "<group>"; };
+		B189319917AD355F00EFA3E2 /* ArticleDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleDetailView.h; sourceTree = "<group>"; };
+		B189319A17AD355F00EFA3E2 /* ArticleDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleDetailView.m; sourceTree = "<group>"; };
+		B189319D17AD35A100EFA3E2 /* ArticleDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleDetail.h; sourceTree = "<group>"; };
+		B189319E17AD35A100EFA3E2 /* ArticleDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleDetail.m; sourceTree = "<group>"; };
+		B18931A017AD35F200EFA3E2 /* ScrollLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScrollLabelView.h; path = UI/OtherViews/ScrollLabelView.h; sourceTree = "<group>"; };
+		B18931A117AD35F200EFA3E2 /* ScrollLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScrollLabelView.m; path = UI/OtherViews/ScrollLabelView.m; sourceTree = "<group>"; };
+		B18931A317AD361D00EFA3E2 /* ArticlePicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticlePicView.h; sourceTree = "<group>"; };
+		B18931A417AD361D00EFA3E2 /* ArticlePicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticlePicView.m; sourceTree = "<group>"; };
+		B18931A517AD361D00EFA3E2 /* ArticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleView.h; sourceTree = "<group>"; };
+		B18931A617AD361D00EFA3E2 /* ArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleView.m; sourceTree = "<group>"; };
+		B18931AF17AD3B2500EFA3E2 /* LocalArticleVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalArticleVC.h; sourceTree = "<group>"; };
+		B18931B017AD3B2500EFA3E2 /* LocalArticleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalArticleVC.m; sourceTree = "<group>"; };
+		B18931B217AD3BAD00EFA3E2 /* DBController+Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DBController+Article.h"; path = "Core/DB/DBController+Article.h"; sourceTree = "<group>"; };
+		B18931B317AD3BAD00EFA3E2 /* DBController+Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DBController+Article.m"; path = "Core/DB/DBController+Article.m"; sourceTree = "<group>"; };
+		B18931B517AD3C6F00EFA3E2 /* LocalArticleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalArticleView.h; sourceTree = "<group>"; };
+		B18931B617AD3C6F00EFA3E2 /* LocalArticleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalArticleView.m; sourceTree = "<group>"; };
+		B18931B817AD405300EFA3E2 /* ArticleParagraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleParagraph.h; sourceTree = "<group>"; };
+		B18931B917AD405300EFA3E2 /* ArticleParagraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleParagraph.m; sourceTree = "<group>"; };
+		B18931BB17AD408900EFA3E2 /* parser.doc */ = {isa = PBXFileReference; lastKnownFileType = file; path = parser.doc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B189319017AD338600EFA3E2 /* libsqlite3.dylib in Frameworks */,
 				B18930F417AD337500EFA3E2 /* UIKit.framework in Frameworks */,
 				B18930F617AD337500EFA3E2 /* Foundation.framework in Frameworks */,
 				B18930F817AD337500EFA3E2 /* CoreGraphics.framework in Frameworks */,
@@ -192,6 +227,7 @@
 				B18930F917AD337500EFA3E2 /* AddressBook.framework */,
 				B18930FB17AD337500EFA3E2 /* SystemConfiguration.framework */,
 				B18930FD17AD337500EFA3E2 /* QuartzCore.framework */,
+				B189318F17AD338600EFA3E2 /* libsqlite3.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -211,6 +247,7 @@
 		B189310017AD337500EFA3E2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B18931BB17AD408900EFA3E2 /* parser.doc */,
 				B189310117AD337500EFA3E2 /* testFSM-Info.plist */,
 				B189310217AD337500EFA3E2 /* InfoPlist.strings */,
 				B189310517AD337500EFA3E2 /* main.m */,
@@ -228,6 +265,7 @@
 			children = (
 				B189311417AD337500EFA3E2 /* AppSetting */,
 				B189311B17AD337600EFA3E2 /* DB */,
+				B189319C17AD35A100EFA3E2 /* DataStruct */,
 				B189312C17AD337600EFA3E2 /* Engine */,
 				B189314217AD337600EFA3E2 /* Net */,
 				B189314D17AD337600EFA3E2 /* FileManager */,
@@ -250,13 +288,15 @@
 		B189311B17AD337600EFA3E2 /* DB */ = {
 			isa = PBXGroup;
 			children = (
+				B189312517AD337600EFA3E2 /* DBBase */,
 				B189311C17AD337600EFA3E2 /* DBController.h */,
 				B189311D17AD337600EFA3E2 /* DBController.m */,
 				B189311F17AD337600EFA3E2 /* DBController+Update.h */,
 				B189312017AD337600EFA3E2 /* DBController+Update.m */,
 				B189312217AD337600EFA3E2 /* DBController+Version.h */,
 				B189312317AD337600EFA3E2 /* DBController+Version.m */,
-				B189312517AD337600EFA3E2 /* DBBase */,
+				B18931B217AD3BAD00EFA3E2 /* DBController+Article.h */,
+				B18931B317AD3BAD00EFA3E2 /* DBController+Article.m */,
 			);
 			name = DB;
 			sourceTree = "<group>";
@@ -296,9 +336,9 @@
 		B189314217AD337600EFA3E2 /* Net */ = {
 			isa = PBXGroup;
 			children = (
+				B189314317AD337600EFA3E2 /* NetBase */,
 				B189314A17AD337600EFA3E2 /* NetController.h */,
 				B189314B17AD337600EFA3E2 /* NetController.m */,
-				B189314317AD337600EFA3E2 /* NetBase */,
 			);
 			name = Net;
 			sourceTree = "<group>";
@@ -351,11 +391,13 @@
 		B189316D17AD337600EFA3E2 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				B189316E17AD337600EFA3E2 /* Engine */,
+				B189319117AD33BB00EFA3E2 /* VCs */,
+				B189319817AD355F00EFA3E2 /* Views */,
+				B189317217AD337600EFA3E2 /* OtherViews */,
 				B189318617AD337600EFA3E2 /* RootViewController.h */,
 				B189318717AD337600EFA3E2 /* RootViewController.m */,
 				B189318917AD337600EFA3E2 /* UIMacro.h */,
-				B189316E17AD337600EFA3E2 /* Engine */,
-				B189317217AD337600EFA3E2 /* OtherViews */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -379,6 +421,8 @@
 				B189317917AD337600EFA3E2 /* NSObject+ActivityAlertView.h */,
 				B189317A17AD337600EFA3E2 /* NSString+AlertView.h */,
 				B189317B17AD337600EFA3E2 /* NSString+AlertView.m */,
+				B18931A017AD35F200EFA3E2 /* ScrollLabelView.h */,
+				B18931A117AD35F200EFA3E2 /* ScrollLabelView.m */,
 				B189317D17AD337600EFA3E2 /* UICustomProgressBar.h */,
 				B189317E17AD337600EFA3E2 /* UICustomProgressBar.m */,
 				B189318017AD337600EFA3E2 /* UIView+Badge.h */,
@@ -387,6 +431,46 @@
 				B189318417AD337600EFA3E2 /* UIView+MBProgressHUD.m */,
 			);
 			name = OtherViews;
+			sourceTree = "<group>";
+		};
+		B189319117AD33BB00EFA3E2 /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				B18931AF17AD3B2500EFA3E2 /* LocalArticleVC.h */,
+				B18931B017AD3B2500EFA3E2 /* LocalArticleVC.m */,
+				B189319517AD351A00EFA3E2 /* ArticleDetailVC.h */,
+				B189319617AD351A00EFA3E2 /* ArticleDetailVC.m */,
+			);
+			name = VCs;
+			path = UI/VCs;
+			sourceTree = "<group>";
+		};
+		B189319817AD355F00EFA3E2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B18931B817AD405300EFA3E2 /* ArticleParagraph.h */,
+				B18931B917AD405300EFA3E2 /* ArticleParagraph.m */,
+				B18931B517AD3C6F00EFA3E2 /* LocalArticleView.h */,
+				B18931B617AD3C6F00EFA3E2 /* LocalArticleView.m */,
+				B18931A317AD361D00EFA3E2 /* ArticlePicView.h */,
+				B18931A417AD361D00EFA3E2 /* ArticlePicView.m */,
+				B18931A517AD361D00EFA3E2 /* ArticleView.h */,
+				B18931A617AD361D00EFA3E2 /* ArticleView.m */,
+				B189319917AD355F00EFA3E2 /* ArticleDetailView.h */,
+				B189319A17AD355F00EFA3E2 /* ArticleDetailView.m */,
+			);
+			name = Views;
+			path = UI/Views;
+			sourceTree = "<group>";
+		};
+		B189319C17AD35A100EFA3E2 /* DataStruct */ = {
+			isa = PBXGroup;
+			children = (
+				B189319D17AD35A100EFA3E2 /* ArticleDetail.h */,
+				B189319E17AD35A100EFA3E2 /* ArticleDetail.m */,
+			);
+			name = DataStruct;
+			path = Core/DataStruct;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -445,6 +529,7 @@
 				B189310E17AD337500EFA3E2 /* Default@2x.png in Resources */,
 				B189311017AD337500EFA3E2 /* Default-568h@2x.png in Resources */,
 				B189311217AD337500EFA3E2 /* testFSM.sqlite in Resources */,
+				B18931BC17AD408A00EFA3E2 /* parser.doc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +577,16 @@
 				B189318217AD337600EFA3E2 /* UIView+Badge.m in Sources */,
 				B189318517AD337600EFA3E2 /* UIView+MBProgressHUD.m in Sources */,
 				B189318817AD337600EFA3E2 /* RootViewController.m in Sources */,
+				B189319717AD351A00EFA3E2 /* ArticleDetailVC.m in Sources */,
+				B189319B17AD355F00EFA3E2 /* ArticleDetailView.m in Sources */,
+				B189319F17AD35A100EFA3E2 /* ArticleDetail.m in Sources */,
+				B18931A217AD35F200EFA3E2 /* ScrollLabelView.m in Sources */,
+				B18931A717AD361D00EFA3E2 /* ArticlePicView.m in Sources */,
+				B18931A817AD361D00EFA3E2 /* ArticleView.m in Sources */,
+				B18931B117AD3B2500EFA3E2 /* LocalArticleVC.m in Sources */,
+				B18931B417AD3BAD00EFA3E2 /* DBController+Article.m in Sources */,
+				B18931B717AD3C6F00EFA3E2 /* LocalArticleView.m in Sources */,
+				B18931BA17AD405300EFA3E2 /* ArticleParagraph.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

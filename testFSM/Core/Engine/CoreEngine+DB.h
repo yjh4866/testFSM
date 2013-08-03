@@ -8,6 +8,18 @@
 
 #import "CoreEngine.h"
 
+@class ArticleDetail;
+
 @interface CoreEngine (DB)
+
+// 加载本地文章项
+- (void)loadLocalArticleItems:(NSMutableArray *)marrArticleItem;
+
+// 加载文章详情
+- (void)loadArticleDetail:(ArticleDetail *)articleDetail
+                       of:(NSString *)articleID;
+
+// 删除指定文章详情
+- (void)deleteArticleDetailOf:(NSString *)articleID;
 
 @end

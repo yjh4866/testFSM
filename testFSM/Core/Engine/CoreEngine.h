@@ -25,6 +25,12 @@
 @end
 
 
+extern NSString *const NetDownloadPictureFailure;
+extern NSString *const NetDownloadPictureSuccess;
+extern NSString *const NetDownloadPicFileSize;
+extern NSString *const NetDownloadPicReceivedSize;
+
+
 #ifdef DEBUG
 
 #define CORELOG(fmt,...)     NSLog((@"CORE->%s(%d):"fmt),__PRETTY_FUNCTION__,__LINE__,##__VA_ARGS__)

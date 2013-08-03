@@ -10,4 +10,7 @@
 
 @interface CoreEngine (FileManager)
 
+// 获取指定url的图片
+- (UIImage *)pictureWithUrl:(NSString *)url;
+
 @end

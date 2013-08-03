@@ -10,4 +10,7 @@
 
 @interface CoreEngine (Send)
 
+// 下载指定url的图片
+- (void)forceDownloadPicture:(BOOL)force withUrl:(NSString *)picUrl;
+
 @end

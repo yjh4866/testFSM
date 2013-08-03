@@ -30,7 +30,7 @@
     _engineCore = [[CoreEngine alloc] init];
     // UIEngine
     _engineUI = [[UIEngine alloc] init];
-    _engineUI.engineCore = _engineCore;
+    _engineUI.coreEngine = _engineCore;
     // set root ViewController
     self.window.rootViewController = _engineUI.rootViewController;
     

@@ -11,6 +11,12 @@
 #import "DBController+Update.h"
 #import "CoreEngine+Update.h"
 #import "AppSetting+Server.h"
+#import "FileManager.h"
+
+NSString *const NetDownloadPictureFailure   = @"NetDownloadPictureFailure";
+NSString *const NetDownloadPictureSuccess   = @"NetDownloadPictureSuccess";
+NSString *const NetDownloadPicFileSize      = @"NetDownloadPicFileSize";
+NSString *const NetDownloadPicReceivedSize  = @"NetDownloadPicReceivedSize";
 
 @implementation CoreEngine
 
@@ -18,6 +24,11 @@
 {
     self = [super init];
     if (self) {
+        //删除图片缓存及数据库文件以便测试
+        [FileManager clearAllCache];
+        NSString *pathDB = [NSString stringWithFormat:@"%@/Documents/%@", NSHomeDirectory(), NAME_DB];
+        [[NSFileManager defaultManager] removeItemAtPath:pathDB error:nil];
+        
         //复制数据库文件
         [DBConnection createCopyOfDatabaseIfNeeded];
         //数据库升级
