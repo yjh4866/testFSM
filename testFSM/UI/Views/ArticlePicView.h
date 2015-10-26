@@ -19,8 +19,8 @@
 // 设置指定url的图片大小
 - (void)setPictureSize:(NSUInteger)picSize;
 
-// 设置下载到指定url的图片的大小
-- (void)receivePartPicture:(NSUInteger)picPartSize;
+// 设置下载指定url的图片的进度
+- (void)setProgressOfDownloadPicture:(CGFloat)progress;
 
 @end
 

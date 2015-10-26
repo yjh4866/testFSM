@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, ParagraphElementType) {
+typedef NS_ENUM(unsigned int, ParagraphElementType) {
     ParagraphElementType_None,
     ParagraphElementType_Picture,
     ParagraphElementType_Text,

@@ -8,7 +8,6 @@
 
 #import "DBController+Article.h"
 #import "ArticleDetail.h"
-#import "JSONKit.h"
 
 @implementation DBController (Article)
 
@@ -39,8 +38,14 @@
     [stmt bindString:@"" forIndex:17];
     [stmt bindInt32:0 forIndex:18];
     [stmt bindBool:articleDetail.favorite forIndex:19];
-    NSString *strTagsJSON = [articleDetail.tags JSONString];
-    [stmt bindString:strTagsJSON forIndex:20];
+    if (articleDetail.tags) {
+        NSData *dataJSON = [NSJSONSerialization dataWithJSONObject:articleDetail.tags options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *strTagsJSON = [[NSString alloc] initWithData:dataJSON encoding:NSUTF8StringEncoding];
+        if (strTagsJSON) {
+            [stmt bindString:strTagsJSON forIndex:20];
+        }
+        [strTagsJSON release];
+    }
     //添加日期
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYY年MM月dd日"];
@@ -100,7 +105,10 @@
         articleDetail.articleUrl = [stmt getString:14];
         articleDetail.favorite = [stmt getBool:18];
         NSString *strTagsJSON = [stmt getString:19];
-        articleDetail.tags = [strTagsJSON objectFromJSONString];
+        {
+            NSData *dataJSON = [strTagsJSON dataUsingEncoding:NSUTF8StringEncoding];
+            articleDetail.tags = [NSJSONSerialization JSONObjectWithData:dataJSON options:NSJSONReadingAllowFragments error:nil];
+        }
         //
         exist = YES;
     }

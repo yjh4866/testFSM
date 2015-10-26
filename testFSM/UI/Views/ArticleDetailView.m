@@ -250,10 +250,10 @@ ArticleViewDataSource, ArticleViewDelegate> {
     [_articleView setPictureSize:picSize withUrl:url];
 }
 
-// 设置下载到指定url的图片的大小
-- (void)receivePartPicture:(NSUInteger)picPartSize withUrl:(NSString *)url
+// 设置下载指定url的图片的进度
+- (void)setProgressOfDownloadPicture:(CGFloat)progress withUrl:(NSString *)url
 {
-    [_articleView receivePartPicture:picPartSize withUrl:url];
+    [_articleView setProgressOfDownloadPicture:progress withUrl:url];
 }
 
 // 指定的url图片下载成功

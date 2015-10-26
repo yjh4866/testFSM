@@ -187,8 +187,8 @@
     }
 }
 
-// 设置下载到指定url的图片的大小
-- (void)receivePartPicture:(NSUInteger)picPartSize withUrl:(NSString *)url
+// 设置下载指定url的图片的进度
+- (void)setProgressOfDownloadPicture:(CGFloat)progress withUrl:(NSString *)url
 {
     for (NSDictionary *dicParagraph in _marrParagraph) {
         ParagraphElement *pElement = [dicParagraph objectForKey:@"pe"];
@@ -196,7 +196,7 @@
         if (ParagraphElementType_Picture == pElement.eleType) {
             ArticlePicView *picView = [dicParagraph objectForKey:@"view"];
             if ([url isEqualToString:picView.url]) {
-                [picView receivePartPicture:picPartSize];
+                [picView setProgressOfDownloadPicture:progress];
             }
         }
     }

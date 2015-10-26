@@ -8,15 +8,11 @@
 
 #import "NetController.h"
 #import "HTTPConnection.h"
-#import "DLConnection.h"
-#import "JSONKit.h"
+#import "HTTPFile.h"
 
 
-#define LOCALNET
-#undef LOCALNET
-
-#ifdef LOCALNET
-#define HOST_Interface     @"http://192.168.1.110/interface/"
+#ifdef DEBUG
+#define HOST_Interface     @"http://dp.sina.cn/interface/"
 #else
 #define HOST_Interface     @"http://dp.sina.cn/interface/"
 #endif
@@ -25,19 +21,19 @@
 #define ArticleUrl        HOST_Interface @"article_read.php?articleid=%@"
 
 
-typedef NS_ENUM(NSUInteger, NetRequestType) {
+typedef NS_ENUM(unsigned int, NetRequestType) {
     NetRequestType_None,
 };
-typedef NS_ENUM(NSInteger, DownloadFileType) {
+typedef NS_ENUM(unsigned int, DownloadFileType) {
     DownloadFileType_None,
     DownloadFileType_Avatar,
     DownloadFileType_Picture,
 };
 
-@interface NetController () <HTTPConnectionDelegate, DLConnectionDelegate> {
+@interface NetController () <HTTPConnectionDelegate, HTTPFileDelegate> {
     
     HTTPConnection *_httpConnection;
-    DLConnection *_downloadConnection;
+    HTTPFile *_fileConnection;
 }
 
 @end
@@ -52,16 +48,18 @@ typedef NS_ENUM(NSInteger, DownloadFileType) {
         //
         _httpConnection = [[HTTPConnection alloc] init];
         _httpConnection.delegate = self;
-        _downloadConnection = [[DLConnection alloc] init];
-        _downloadConnection.delegate = self;
+        _fileConnection = [[HTTPFile alloc] init];
+        _fileConnection.delegate = self;
     }
     return self;
 }
 
 - (void)dealloc
 {
+    _httpConnection.delegate = nil;
     [_httpConnection release];
-    [_downloadConnection release];
+    _fileConnection.delegate = nil;
+    [_fileConnection release];
     
     [super dealloc];
 }
@@ -78,7 +76,7 @@ typedef NS_ENUM(NSInteger, DownloadFileType) {
 - (void)downloadPicture:(NSString *)picPath withUrl:(NSString *)picUrl
 {
     NSDictionary *dicParam = @{@"type": [NSNumber numberWithInt:DownloadFileType_Picture]};
-    [_downloadConnection downloadFile:picPath from:picUrl withParam:dicParam];
+    [_fileConnection downloadFile:picPath from:picUrl withParam:dicParam];
 }
 
 
@@ -88,7 +86,7 @@ typedef NS_ENUM(NSInteger, DownloadFileType) {
 - (void)httpConnect:(HTTPConnection *)httpConnect error:(NSError *)error with:(NSDictionary *)dicParam
 {
     //网络请求类型
-    NetRequestType requestType = [[dicParam objectForKey:@"type"] intValue];
+    NetRequestType requestType = [dicParam[@"type"] intValue];
     //
     switch (requestType) {
         default:
@@ -101,7 +99,7 @@ typedef NS_ENUM(NSInteger, DownloadFileType) {
  andAllHeaderFields:(NSDictionary *)dicAllHeaderFields with:(NSDictionary *)dicParam
 {
     //网络请求类型
-    NetRequestType requestType = [[dicParam objectForKey:@"type"] intValue];
+    NetRequestType requestType = [dicParam[@"type"] intValue];
     //
     switch (requestType) {
         default:
@@ -113,7 +111,7 @@ typedef NS_ENUM(NSInteger, DownloadFileType) {
 - (void)httpConnect:(HTTPConnection *)httpConnect receivePartData:(NSData *)partData with:(NSDictionary *)dicParam
 {
     //网络请求类型
-    NetRequestType requestType = [[dicParam objectForKey:@"type"] intValue];
+    NetRequestType requestType = [dicParam[@"type"] intValue];
     //
     switch (requestType) {
         default:
@@ -125,7 +123,7 @@ typedef NS_ENUM(NSInteger, DownloadFileType) {
 - (void)httpConnect:(HTTPConnection *)httpConnect finish:(NSData *)data with:(NSDictionary *)dicParam
 {
     //网络请求类型
-    NetRequestType requestType = [[dicParam objectForKey:@"type"] intValue];
+    NetRequestType requestType = [dicParam[@"type"] intValue];
     //
     switch (requestType) {
         default:
@@ -134,14 +132,14 @@ typedef NS_ENUM(NSInteger, DownloadFileType) {
 }
 
 
-#pragma mark - DLConnectionDelegate
+#pragma mark - HTTPFileDelegate
 
 // 下载失败
-- (void)dlConnection:(DLConnection *)dlConnection downloadFailure:(NSError *)error
-            withPath:(NSString *)filePath url:(NSString *)url
-            andParam:(NSDictionary *)dicParam
+- (void)httpFile:(HTTPFile *)httpFile downloadFailure:(NSError *)error
+            from:(NSString *)url withPath:(NSString *)filePath
+        andParam:(NSDictionary *)param
 {
-    DownloadFileType type = [[dicParam objectForKey:@"type"] intValue];
+    DownloadFileType type = [param[@"type"] intValue];
     if (DownloadFileType_Avatar == type) {
     }
     else if (DownloadFileType_Picture == type) {
@@ -153,11 +151,11 @@ typedef NS_ENUM(NSInteger, DownloadFileType) {
 }
 
 // 得到文件实际大小
-- (void)dlConnection:(DLConnection *)dlConnection fileSize:(NSUInteger)fileSize
-            withPath:(NSString *)filePath url:(NSString *)url
-            andParam:(NSDictionary *)dicParam
+- (void)httpFile:(HTTPFile *)httpFile fileSize:(unsigned long)fileSize
+            from:(NSString *)url withPath:(NSString *)filePath
+        andParam:(NSDictionary *)param
 {
-    DownloadFileType type = [[dicParam objectForKey:@"type"] intValue];
+    DownloadFileType type = [param[@"type"] intValue];
     if (DownloadFileType_Picture == type) {
         if ([self.delegate respondsToSelector:@selector(netController:fileSize:withUrl:)]) {
             [self.delegate netController:self fileSize:fileSize withUrl:url];
@@ -166,24 +164,25 @@ typedef NS_ENUM(NSInteger, DownloadFileType) {
 }
 
 // 收到的数据发生变化
-- (void)dlConnection:(DLConnection *)dlConnection receivedSize:(NSUInteger)receivedSize
-            withPath:(NSString *)filePath url:(NSString *)url
-            andParam:(NSDictionary *)dicParam
+- (void)httpFile:(HTTPFile *)httpFile progressChanged:(float)progress
+            from:(NSString *)url withPath:(NSString *)filePath
+        andParam:(NSDictionary *)param
 {
-    DownloadFileType type = [[dicParam objectForKey:@"type"] intValue];
+    DownloadFileType type = [param[@"type"] intValue];
     if (DownloadFileType_Picture == type) {
         if ([self.delegate respondsToSelector:@selector(netController:receivedSize:withUrl:)]) {
-            [self.delegate netController:self receivedSize:receivedSize
+            [self.delegate netController:self progressChanged:progress
                                  withUrl:url];
         }
     }
 }
 
 // 下载完成
-- (void)dlConnection:(DLConnection *)dlConnection finishedWithPath:(NSString *)filePath
-                 url:(NSString *)url andParam:(NSDictionary *)dicParam
+- (void)httpFile:(HTTPFile *)httpFile downloadSuccess:(BOOL)success
+            from:(NSString *)url withPath:(NSString *)filePath
+        andParam:(NSDictionary *)param
 {
-    DownloadFileType type = [[dicParam objectForKey:@"type"] intValue];
+    DownloadFileType type = [param[@"type"] intValue];
     if (DownloadFileType_Avatar == type) {
     }
     else if (DownloadFileType_Picture == type) {

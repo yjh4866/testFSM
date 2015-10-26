@@ -7,7 +7,6 @@
 //
 
 #import "CoreEngine+Receive.h"
-#import "JSONKit.h"
 
 @implementation CoreEngine (Receive)
 
@@ -21,14 +20,14 @@
 // 得到文件实际大小
 - (void)netController:(NetController *)netController fileSize:(NSUInteger)fileSize withUrl:(NSString *)picUrl
 {
-    NSDictionary *dicUserInfo = @{@"url": picUrl, @"filesize": [NSNumber numberWithInt:fileSize]};
+    NSDictionary *dicUserInfo = @{@"url": picUrl, @"filesize": @(fileSize)};
     [[NSNotificationCenter defaultCenter] postNotificationName:NetDownloadPicFileSize object:nil userInfo:dicUserInfo];
 }
 
 // 收到的数据发生变化
-- (void)netController:(NetController *)netController receivedSize:(NSUInteger)receivedSize withUrl:(NSString *)picUrl
+- (void)netController:(NetController *)netController progressChanged:(float)progress withUrl:(NSString *)picUrl
 {
-    NSDictionary *dicUserInfo = @{@"url": picUrl, @"receivedsize": [NSNumber numberWithInt:receivedSize]};
+    NSDictionary *dicUserInfo = @{@"url": picUrl, @"progress": @(progress)};
     [[NSNotificationCenter defaultCenter] postNotificationName:NetDownloadPicReceivedSize object:nil userInfo:dicUserInfo];
 }
 

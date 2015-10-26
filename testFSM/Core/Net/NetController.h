@@ -37,7 +37,7 @@
 - (void)netController:(NetController *)netController fileSize:(NSUInteger)fileSize withUrl:(NSString *)picUrl;
 
 // 收到的数据发生变化
-- (void)netController:(NetController *)netController receivedSize:(NSUInteger)receivedSize withUrl:(NSString *)picUrl;
+- (void)netController:(NetController *)netController progressChanged:(float)progress withUrl:(NSString *)picUrl;
 
 // 下载图片返回数据
 - (void)netController:(NetController *)netController downloadPictureWithUrl:(NSString *)picUrl;

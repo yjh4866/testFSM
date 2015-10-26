@@ -37,6 +37,9 @@ ArticleDetailViewDelegate> {
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     
     //文章内容
     if (nil == _articleDetailView) {
@@ -92,18 +95,18 @@ ArticleDetailViewDelegate> {
 
 - (void)notifArticleDetailFailure:(NSNotification *)notif
 {
-    NSString *articleID = [notif.userInfo objectForKey:@"articleid"];
+    NSString *articleID = notif.userInfo[@"articleid"];
     if (![articleID isEqualToString:self.articleID]) {
         return;
     }
     //提示错误
-    NSString *msg = [notif.userInfo objectForKey:@"msg"];
+    NSString *msg = notif.userInfo[@"msg"];
     [_articleDetailView articleDetailFailureWithMsg:msg];
 }
 
 - (void)notifArticleDetailSuccess:(NSNotification *)notif
 {
-    NSString *articleID = [notif.userInfo objectForKey:@"articleid"];
+    NSString *articleID = notif.userInfo[@"articleid"];
     if (![articleID isEqualToString:self.articleID]) {
         return;
     }
@@ -113,23 +116,23 @@ ArticleDetailViewDelegate> {
 
 - (void)notifPictureFileSize:(NSNotification *)notif
 {
-    NSString *url = [notif.userInfo objectForKey:@"url"];
-    NSUInteger fileSize = [[notif.userInfo objectForKey:@"filesize"] intValue];
+    NSString *url = notif.userInfo[@"url"];
+    NSUInteger fileSize = [notif.userInfo[@"filesize"] intValue];
     //
     [_articleDetailView setPictureSize:fileSize withUrl:url];
 }
 
 - (void)notifPictureReceivedSize:(NSNotification *)notif
 {
-    NSString *url = [notif.userInfo objectForKey:@"url"];
-    NSUInteger receivedSize = [[notif.userInfo objectForKey:@"receivedsize"] intValue];
+    NSString *url = notif.userInfo[@"url"];
+    CGFloat progress = [notif.userInfo[@"progress"] intValue];
     //
-    [_articleDetailView receivePartPicture:receivedSize withUrl:url];
+    [_articleDetailView setProgressOfDownloadPicture:progress withUrl:url];
 }
 
 - (void)notifDownloadPictureSuccess:(NSNotification *)notif
 {
-    NSString *url = [notif.userInfo objectForKey:@"url"];
+    NSString *url = notif.userInfo[@"url"];
     //
     [_articleDetailView downloadPictureSuccessWithUrl:url];
 }

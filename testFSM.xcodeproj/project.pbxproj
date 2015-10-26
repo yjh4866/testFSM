@@ -35,12 +35,10 @@
 		B189313E17AD337600EFA3E2 /* CoreEngine+Send.m in Sources */ = {isa = PBXBuildFile; fileRef = B189313D17AD337600EFA3E2 /* CoreEngine+Send.m */; };
 		B189314117AD337600EFA3E2 /* CoreEngine+Update.m in Sources */ = {isa = PBXBuildFile; fileRef = B189314017AD337600EFA3E2 /* CoreEngine+Update.m */; };
 		B189314617AD337600EFA3E2 /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B189314517AD337600EFA3E2 /* HTTPConnection.m */; };
-		B189314917AD337600EFA3E2 /* DLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = B189314817AD337600EFA3E2 /* DLConnection.m */; };
 		B189314C17AD337600EFA3E2 /* NetController.m in Sources */ = {isa = PBXBuildFile; fileRef = B189314B17AD337600EFA3E2 /* NetController.m */; };
 		B189315017AD337600EFA3E2 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B189314F17AD337600EFA3E2 /* FileManager.m */; };
 		B189315317AD337600EFA3E2 /* FileManager+Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = B189315217AD337600EFA3E2 /* FileManager+Picture.m */; };
 		B189315717AD337600EFA3E2 /* ContactsMan.m in Sources */ = {isa = PBXBuildFile; fileRef = B189315617AD337600EFA3E2 /* ContactsMan.m */; };
-		B189315A17AD337600EFA3E2 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = B189315917AD337600EFA3E2 /* JSONKit.m */; };
 		B189315D17AD337600EFA3E2 /* NSString+Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = B189315C17AD337600EFA3E2 /* NSString+Tool.m */; };
 		B189316017AD337600EFA3E2 /* PictureEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = B189315F17AD337600EFA3E2 /* PictureEditor.m */; };
 		B189316317AD337600EFA3E2 /* PinyinQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = B189316217AD337600EFA3E2 /* PinyinQuery.m */; };
@@ -67,6 +65,7 @@
 		B18931B717AD3C6F00EFA3E2 /* LocalArticleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B18931B617AD3C6F00EFA3E2 /* LocalArticleView.m */; };
 		B18931BA17AD405300EFA3E2 /* ArticleParagraph.m in Sources */ = {isa = PBXBuildFile; fileRef = B18931B917AD405300EFA3E2 /* ArticleParagraph.m */; };
 		B18931BC17AD408A00EFA3E2 /* parser.doc in Resources */ = {isa = PBXBuildFile; fileRef = B18931BB17AD408900EFA3E2 /* parser.doc */; };
+		FF56FC5C1BDDF0BF0002D164 /* HTTPFile.m in Sources */ = {isa = PBXBuildFile; fileRef = FF56FC5B1BDDF0BF0002D164 /* HTTPFile.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,8 +116,6 @@
 		B189314017AD337600EFA3E2 /* CoreEngine+Update.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CoreEngine+Update.m"; path = "Core/Engine/CoreEngine+Update.m"; sourceTree = "<group>"; };
 		B189314417AD337600EFA3E2 /* HTTPConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HTTPConnection.h; path = Core/Net/NetBase/HTTPConnection.h; sourceTree = "<group>"; };
 		B189314517AD337600EFA3E2 /* HTTPConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HTTPConnection.m; path = Core/Net/NetBase/HTTPConnection.m; sourceTree = "<group>"; };
-		B189314717AD337600EFA3E2 /* DLConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DLConnection.h; path = Core/Net/NetBase/DLConnection.h; sourceTree = "<group>"; };
-		B189314817AD337600EFA3E2 /* DLConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DLConnection.m; path = Core/Net/NetBase/DLConnection.m; sourceTree = "<group>"; };
 		B189314A17AD337600EFA3E2 /* NetController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NetController.h; path = Core/Net/NetController.h; sourceTree = "<group>"; };
 		B189314B17AD337600EFA3E2 /* NetController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = NetController.m; path = Core/Net/NetController.m; sourceTree = "<group>"; };
 		B189314E17AD337600EFA3E2 /* FileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FileManager.h; path = Core/FileManager/FileManager.h; sourceTree = "<group>"; };
@@ -127,8 +124,6 @@
 		B189315217AD337600EFA3E2 /* FileManager+Picture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "FileManager+Picture.m"; path = "Core/FileManager/FileManager+Picture.m"; sourceTree = "<group>"; };
 		B189315517AD337600EFA3E2 /* ContactsMan.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ContactsMan.h; path = Core/Other/ContactsMan.h; sourceTree = "<group>"; };
 		B189315617AD337600EFA3E2 /* ContactsMan.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ContactsMan.m; path = Core/Other/ContactsMan.m; sourceTree = "<group>"; };
-		B189315817AD337600EFA3E2 /* JSONKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = Core/Other/JSONKit.h; sourceTree = "<group>"; };
-		B189315917AD337600EFA3E2 /* JSONKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = Core/Other/JSONKit.m; sourceTree = "<group>"; };
 		B189315B17AD337600EFA3E2 /* NSString+Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+Tool.h"; path = "Core/Other/NSString+Tool.h"; sourceTree = "<group>"; };
 		B189315C17AD337600EFA3E2 /* NSString+Tool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSString+Tool.m"; path = "Core/Other/NSString+Tool.m"; sourceTree = "<group>"; };
 		B189315E17AD337600EFA3E2 /* PictureEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PictureEditor.h; path = Core/Other/PictureEditor.h; sourceTree = "<group>"; };
@@ -181,6 +176,8 @@
 		B18931B817AD405300EFA3E2 /* ArticleParagraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleParagraph.h; sourceTree = "<group>"; };
 		B18931B917AD405300EFA3E2 /* ArticleParagraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleParagraph.m; sourceTree = "<group>"; };
 		B18931BB17AD408900EFA3E2 /* parser.doc */ = {isa = PBXFileReference; lastKnownFileType = file; path = parser.doc; sourceTree = "<group>"; };
+		FF56FC5A1BDDF0BF0002D164 /* HTTPFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPFile.h; path = Core/Net/NetBase/HTTPFile.h; sourceTree = "<group>"; };
+		FF56FC5B1BDDF0BF0002D164 /* HTTPFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPFile.m; path = Core/Net/NetBase/HTTPFile.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,8 +345,8 @@
 			children = (
 				B189314417AD337600EFA3E2 /* HTTPConnection.h */,
 				B189314517AD337600EFA3E2 /* HTTPConnection.m */,
-				B189314717AD337600EFA3E2 /* DLConnection.h */,
-				B189314817AD337600EFA3E2 /* DLConnection.m */,
+				FF56FC5A1BDDF0BF0002D164 /* HTTPFile.h */,
+				FF56FC5B1BDDF0BF0002D164 /* HTTPFile.m */,
 			);
 			name = NetBase;
 			sourceTree = "<group>";
@@ -370,8 +367,6 @@
 			children = (
 				B189315517AD337600EFA3E2 /* ContactsMan.h */,
 				B189315617AD337600EFA3E2 /* ContactsMan.m */,
-				B189315817AD337600EFA3E2 /* JSONKit.h */,
-				B189315917AD337600EFA3E2 /* JSONKit.m */,
 				B189315B17AD337600EFA3E2 /* NSString+Tool.h */,
 				B189315C17AD337600EFA3E2 /* NSString+Tool.m */,
 				B189315E17AD337600EFA3E2 /* PictureEditor.h */,
@@ -557,12 +552,10 @@
 				B189313E17AD337600EFA3E2 /* CoreEngine+Send.m in Sources */,
 				B189314117AD337600EFA3E2 /* CoreEngine+Update.m in Sources */,
 				B189314617AD337600EFA3E2 /* HTTPConnection.m in Sources */,
-				B189314917AD337600EFA3E2 /* DLConnection.m in Sources */,
 				B189314C17AD337600EFA3E2 /* NetController.m in Sources */,
 				B189315017AD337600EFA3E2 /* FileManager.m in Sources */,
 				B189315317AD337600EFA3E2 /* FileManager+Picture.m in Sources */,
 				B189315717AD337600EFA3E2 /* ContactsMan.m in Sources */,
-				B189315A17AD337600EFA3E2 /* JSONKit.m in Sources */,
 				B189315D17AD337600EFA3E2 /* NSString+Tool.m in Sources */,
 				B189316017AD337600EFA3E2 /* PictureEditor.m in Sources */,
 				B189316317AD337600EFA3E2 /* PinyinQuery.m in Sources */,
@@ -587,6 +580,7 @@
 				B18931B417AD3BAD00EFA3E2 /* DBController+Article.m in Sources */,
 				B18931B717AD3C6F00EFA3E2 /* LocalArticleView.m in Sources */,
 				B18931BA17AD405300EFA3E2 /* ArticleParagraph.m in Sources */,
+				FF56FC5C1BDDF0BF0002D164 /* HTTPFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,6 +693,7 @@
 				B189318E17AD337600EFA3E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

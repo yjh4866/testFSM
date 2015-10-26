@@ -110,11 +110,10 @@
     [self addSubview:_imageViewProgressBG];
 }
 
-// 设置下载到指定url的图片的大小
-- (void)receivePartPicture:(NSUInteger)picPartSize
+// 设置下载指定url的图片的进度
+- (void)setProgressOfDownloadPicture:(CGFloat)progress
 {
     if (_picSize > 0) {
-        CGFloat progress = 1.0f*picPartSize/_picSize;
         CGFloat widthProgress = progress*(Width_ArticlePicProgress-4.0f);
         _imageViewProgress.frame = CGRectMake(2.0f, 1.5f, widthProgress, 5.0f);
     }
