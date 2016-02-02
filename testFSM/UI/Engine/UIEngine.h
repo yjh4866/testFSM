@@ -22,7 +22,7 @@
 LocalArticleVCDataSource, LocalArticleVCDelegate,
 ArticleDetailVCDataSource, ArticleDetailVCDelegate>
 
-@property (nonatomic, readonly) UIViewController *rootViewController;
+@property (nonatomic, readonly) RootViewController *rootVC;
 @property (nonatomic, retain) CoreEngine *coreEngine;
 
 @end

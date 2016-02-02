@@ -20,9 +20,6 @@
 
 - (void)dealloc
 {
-    [_sourceText release];
-    
-    [super dealloc];
 }
 
 @end
@@ -34,7 +31,7 @@
 {
     //
     NSMutableArray *marrParagraph = [NSMutableArray array];
-    NSMutableArray *marrCurParagraph = [[NSMutableArray alloc] init];
+    NSMutableArray *marrCurParagraph = [NSMutableArray array];
     //
     NSRange rangeEle = NSMakeRange(0, 0);
     NSUInteger status = 0;
@@ -54,7 +51,6 @@
                         pEle.sourceText = [article substringWithRange:rangeEle];
                         pEle.eleType = ParagraphElementType_Text;
                         [marrCurParagraph addObject:pEle];
-                        [pEle release];
                         //
                         rangeEle.location += rangeEle.length;
                         rangeEle.length = 1;
@@ -70,7 +66,6 @@
                         pEle.sourceText = [article substringWithRange:rangeEle];
                         pEle.eleType = ParagraphElementType_Text;
                         [marrCurParagraph addObject:pEle];
-                        [pEle release];
                         //
                         rangeEle.location += rangeEle.length;
                         rangeEle.length = 1;
@@ -80,7 +75,6 @@
                     ParagraphElement *pEle = [[ParagraphElement alloc] init];
                     pEle.eleType = ParagraphElementType_Error;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                 }
             }
                 break;
@@ -93,7 +87,6 @@
                     pEle.sourceText = [article substringWithRange:rangeEle];
                     pEle.eleType = ParagraphElementType_Tag_startp;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                     //
                     rangeEle.location += rangeEle.length;
                     rangeEle.length = 0;
@@ -105,10 +98,8 @@
                     pEle.sourceText = [article substringWithRange:rangeEle];
                     pEle.eleType = ParagraphElementType_Tag_endp;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                     //保存当前段
                     [marrParagraph addObject:marrCurParagraph];
-                    [marrCurParagraph release];
                     //开始新段
                     marrCurParagraph = [[NSMutableArray alloc] init];
                 }
@@ -119,7 +110,6 @@
                     pEle.sourceText = [article substringWithRange:rangeEle];
                     pEle.eleType = ParagraphElementType_Picture;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                     //
                     rangeEle.location += rangeEle.length;
                     rangeEle.length = 0;
@@ -131,7 +121,6 @@
                     pEle.sourceText = [article substringWithRange:rangeEle];
                     pEle.eleType = ParagraphElementType_Picture;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                     //
                     rangeEle.location += rangeEle.length;
                     rangeEle.length = 0;
@@ -143,13 +132,11 @@
                     pEle.sourceText = [article substringWithRange:rangeEle];
                     pEle.eleType = ParagraphElementType_Tag_br;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                     //
                     rangeEle.location += rangeEle.length;
                     rangeEle.length = 0;
                     //保存当前段
                     [marrParagraph addObject:marrCurParagraph];
-                    [marrCurParagraph release];
                     //开始新段
                     marrCurParagraph = [[NSMutableArray alloc] init];
                 }
@@ -157,7 +144,6 @@
                     ParagraphElement *pEle = [[ParagraphElement alloc] init];
                     pEle.eleType = ParagraphElementType_Error;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                 }
             }
                 break;
@@ -185,7 +171,6 @@
                     ParagraphElement *pEle = [[ParagraphElement alloc] init];
                     pEle.eleType = ParagraphElementType_Error;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                 }
             }
                 break;
@@ -225,7 +210,6 @@
                     ParagraphElement *pEle = [[ParagraphElement alloc] init];
                     pEle.eleType = ParagraphElementType_Error;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                 }
             }
                 break;
@@ -259,7 +243,6 @@
                     ParagraphElement *pEle = [[ParagraphElement alloc] init];
                     pEle.eleType = ParagraphElementType_Error;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                 }
             }
                 break;
@@ -293,7 +276,6 @@
                     ParagraphElement *pEle = [[ParagraphElement alloc] init];
                     pEle.eleType = ParagraphElementType_Error;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                 }
             }
                 break;
@@ -327,7 +309,6 @@
                     ParagraphElement *pEle = [[ParagraphElement alloc] init];
                     pEle.eleType = ParagraphElementType_Error;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                 }
             }
                 break;
@@ -361,7 +342,6 @@
                     ParagraphElement *pEle = [[ParagraphElement alloc] init];
                     pEle.eleType = ParagraphElementType_Error;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                 }
             }
                 break;
@@ -392,7 +372,6 @@
                     ParagraphElement *pEle = [[ParagraphElement alloc] init];
                     pEle.eleType = ParagraphElementType_Error;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                 }
             }
                 break;
@@ -423,7 +402,6 @@
                     ParagraphElement *pEle = [[ParagraphElement alloc] init];
                     pEle.eleType = ParagraphElementType_Error;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                 }
             }
                 break;
@@ -451,7 +429,6 @@
                     ParagraphElement *pEle = [[ParagraphElement alloc] init];
                     pEle.eleType = ParagraphElementType_Error;
                     [marrCurParagraph addObject:pEle];
-                    [pEle release];
                 }
             }
                 break;
@@ -463,11 +440,9 @@
         pEle.sourceText = [article substringWithRange:rangeEle];
         pEle.eleType = ParagraphElementType_Text;
         [marrCurParagraph addObject:pEle];
-        [pEle release];
         //
         [marrParagraph addObject:marrCurParagraph];
     }
-    [marrCurParagraph release];
     
     //文本转义
     for (NSArray *arrParagraphElement in marrParagraph) {

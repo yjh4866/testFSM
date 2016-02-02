@@ -16,10 +16,10 @@
 // 升级
 - (void)update
 {
-    //获取当前用户信息版本号
+    // 获取当前用户信息版本号
     NSString *strOldVersion = [AppSetting userInfoVersion];
     NSUInteger oldVersion = [self versionID:strOldVersion];
-    //获取当前软件版本号
+    // 获取当前软件版本号
     NSDictionary *dicSoftInfo = [[NSBundle mainBundle] infoDictionary];
     NSString *strNewVersion = [dicSoftInfo objectForKey:@"CFBundleShortVersionString"];
     NSUInteger newVersion = [self versionID:strNewVersion];
@@ -29,7 +29,7 @@
     [AppSetting oldVersion:strOldVersion];
     [AppSetting newVersion:strNewVersion];
     
-    //保存当前用户信息版本号
+    // 保存当前用户信息版本号
     [AppSetting userInfoVersion:strNewVersion];
 }
 

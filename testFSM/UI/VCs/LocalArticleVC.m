@@ -9,11 +9,8 @@
 #import "LocalArticleVC.h"
 #import "LocalArticleView.h"
 
-@interface LocalArticleVC () <LocalArticleViewDataSource, LocalArticleViewDelegate> {
-    
-    LocalArticleView *_localArticleView;
-}
-
+@interface LocalArticleVC () <LocalArticleViewDataSource, LocalArticleViewDelegate>
+@property (nonatomic, strong) LocalArticleView *localArticleView;
 @end
 
 @implementation LocalArticleVC
@@ -36,14 +33,14 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    if (nil == _localArticleView) {
-        _localArticleView = [[LocalArticleView alloc] initWithFrame:self.view.bounds];
-        _localArticleView.dataSource = self;
-        _localArticleView.delegate = self;
+    if (nil == self.localArticleView) {
+        self.localArticleView = [[LocalArticleView alloc] initWithFrame:self.view.bounds];
+        self.localArticleView.dataSource = self;
+        self.localArticleView.delegate = self;
     }
-    [self.view addSubview:_localArticleView];
+    [self.view addSubview:self.localArticleView];
     
-    [_localArticleView showLocalArticleList];
+    [self.localArticleView showLocalArticleList];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,18 +49,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     
-    _localArticleView.frame = self.view.bounds;
+    self.localArticleView.frame = self.view.bounds;
 }
 
 - (void)dealloc
 {
-    [_localArticleView release];
-    
-    [super dealloc];
 }
 
 

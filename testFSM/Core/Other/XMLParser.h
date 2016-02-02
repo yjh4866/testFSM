@@ -14,12 +14,12 @@
 
 @interface XMLNode : NSObject
 
-@property (nonatomic, copy) NSString *nodeName;//结点名称
-@property (nonatomic, retain) NSDictionary *nodeAttributesDict;//结点属性
-@property (nonatomic, readonly) NSArray *children;//子结点
-@property (nonatomic, copy) NSString *nodeValue;//结点值
+@property (nonatomic, readonly) NSString *nodeName;               // 结点名称
+@property (nonatomic, readonly) NSDictionary *nodeAttributesDict; // 结点属性
+@property (nonatomic, readonly) NSArray *children;                // 子结点
+@property (nonatomic, readonly) NSString *nodeValue;              // 结点值
 @property (nonatomic, readonly) NSUInteger nodeDepth;
-@property (nonatomic, readonly) XMLNode *nodeParent;//父结点
+@property (nonatomic, readonly) XMLNode *nodeParent;              // 父结点
 
 // 查询指定名称的结点
 - (NSArray *)findNodesWithNodeName:(NSString *)nodeName;

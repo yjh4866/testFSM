@@ -28,15 +28,6 @@
 // 获取文章详情成功
 - (void)articleDetailSuccess;
 
-// 设置指定url的图片大小
-- (void)setPictureSize:(NSUInteger)picSize withUrl:(NSString *)url;
-
-// 设置下载指定url的图片的进度
-- (void)setProgressOfDownloadPicture:(CGFloat)progress withUrl:(NSString *)url;
-
-// 指定的url图片下载成功
-- (void)downloadPictureSuccessWithUrl:(NSString *)url;
-
 @end
 
 
@@ -45,10 +36,6 @@
 // 加载文章详情
 - (void)articleDetailView:(ArticleDetailView *)articleDetailView
         loadArticleDetail:(ArticleDetail *)articleDetail;
-
-// 获取指定url的图片
-- (UIImage *)articleDetailView:(ArticleDetailView *)articleDetailView
-          getArticlePicWithUrl:(NSString *)url;
 
 @end
 
@@ -61,10 +48,6 @@
 
 // 获取文章详情
 - (void)articleDetailViewGetDetail:(ArticleDetailView *)articleDetailView;
-
-// 下载图片
-- (void)articleDetailView:(ArticleDetailView *)articleDetailView
-  forceDownloadArticlePic:(BOOL)force withUrl:(NSString *)url;
 
 // 显示指定url的Web页面
 - (void)articleDetailView:(ArticleDetailView *)articleDetailView

@@ -44,19 +44,16 @@
         if (strTagsJSON) {
             [stmt bindString:strTagsJSON forIndex:20];
         }
-        [strTagsJSON release];
     }
     //添加日期
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYY年MM月dd日"];
     NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
     [stmt bindString:strDate forIndex:21];
-    [dateFormatter release];
     //
     if ([stmt step] == SQLITE_DONE) {
         
     }
-    [stmt release];
 }
 
 // 加载本地文章列表
@@ -74,7 +71,6 @@
                                   @"date": date};
         [marrArticleItem addObject:dicItem];
     }
-    [stmt release];
 }
 
 // 加载文章详情
@@ -112,7 +108,6 @@
         //
         exist = YES;
     }
-    [stmt release];
     
     //博文数据不存在则从精选列表加载博文标题
     if (!exist) {
@@ -123,7 +118,6 @@
         if ([stmt step] == SQLITE_ROW) {
             articleDetail.title = [stmt getString:0];
         }
-        [stmt release];
     }
 }
 
@@ -138,7 +132,6 @@
     if ([stmt step] == SQLITE_ROW) {
         exist = [stmt getInt32:0] > 0;
     }
-    [stmt release];
     return exist;
 }
 
@@ -151,7 +144,6 @@
     //
     if ([stmt step] == SQLITE_DONE) {
     }
-    [stmt release];
 }
 
 @end

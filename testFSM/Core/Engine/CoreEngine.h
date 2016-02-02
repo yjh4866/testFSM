@@ -10,11 +10,7 @@
 #import "NetController.h"
 
 
-@interface CoreEngine : NSObject <NetControllerDelegate> {
-@private
-    //
-    NetController *_netController;
-}
+@interface CoreEngine : NSObject <NetControllerDelegate>
 
 - (void)applicationWillEnterForeground;
 
@@ -23,12 +19,6 @@
 - (void)applicationDidBecomeActive;
 
 @end
-
-
-extern NSString *const NetDownloadPictureFailure;
-extern NSString *const NetDownloadPictureSuccess;
-extern NSString *const NetDownloadPicFileSize;
-extern NSString *const NetDownloadPicReceivedSize;
 
 
 #ifdef DEBUG

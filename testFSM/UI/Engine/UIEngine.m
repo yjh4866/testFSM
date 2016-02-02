@@ -12,16 +12,11 @@
 #import "CoreEngine+FileManager.h"
 #import "CoreEngine+Send.h"
 
-@interface UIEngine () {
-    
-    RootViewController *_rootViewController;
-}
-
+@interface UIEngine ()
+@property (nonatomic, strong) RootViewController *rootVC;
 @end
 
 @implementation UIEngine
-
-@synthesize rootViewController = _rootViewController;
 
 - (id)init
 {
@@ -29,21 +24,10 @@
     if (self) {
         // Custom initialization
         //
-        _rootViewController = [[RootViewController alloc] init];
-        _rootViewController.delegate = self;
-        UILOG(@"创建UIEngine");
+        self.rootVC = [[RootViewController alloc] init];
+        self.rootVC.delegate = self;
     }
     return self;
-}
-
-- (void)dealloc
-{
-    //
-    [_rootViewController release];
-    //
-    self.coreEngine = nil;
-    
-    [super dealloc];
 }
 
 
@@ -58,14 +42,7 @@
         articleListVC.delegate = self;
         //
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:articleListVC];
-        if ([UIDevice systemVersionID] < __IPHONE_5_0) {
-            [_rootViewController presentModalViewController:nav animated:NO];
-        }
-        else {
-            [_rootViewController presentViewController:nav animated:NO completion:nil];
-        }
-        [nav release];
-        [articleListVC release];
+        [self.rootVC presentViewController:nav animated:NO completion:nil];
     }
 }
 
@@ -92,7 +69,6 @@
     articleVC.delegate = self;
     [localArticleVC.navigationController pushViewController:articleVC
                                                    animated:YES];
-    [articleVC release];
 }
 
 // 删除本地文章
@@ -112,21 +88,7 @@
     [self.coreEngine loadArticleDetail:articleDetail of:articleVC.articleID];
 }
 
-// 获取指定url的图片
-- (UIImage *)articleDetailVC:(ArticleDetailVC *)articleVC
-        getArticlePicWithUrl:(NSString *)url
-{
-    return [self.coreEngine pictureWithUrl:url];
-}
-
 
 #pragma mark - ArticleDetailVCDelegate
-
-// 下载图片
-- (void)articleDetailVC:(ArticleDetailVC *)articleVC
-forceDownloadArticlePic:(BOOL)force withUrl:(NSString *)url
-{
-    [self.coreEngine forceDownloadPicture:force withUrl:url];
-}
 
 @end

@@ -10,12 +10,10 @@
 
 @interface LocalArticleView () <UITableViewDataSource, UITableViewDelegate> {
     
-    UITableView *_tableView;
-    
     NSMutableDictionary *_mdicArticleGroup;
     NSMutableArray *_marrDate;
 }
-
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 @implementation LocalArticleView
@@ -28,11 +26,12 @@
         _mdicArticleGroup = [[NSMutableDictionary alloc] init];
         _marrDate = [[NSMutableArray alloc] init];
         //
-        _tableView = [[UITableView alloc] initWithFrame:self.bounds
-                                                  style:UITableViewStylePlain];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        [self addSubview:_tableView];
+        self.tableView = [[UITableView alloc] initWithFrame:self.bounds
+                                                      style:UITableViewStylePlain];
+        [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"LocalArticleItmeCell"];
+        self.tableView.dataSource = self;
+        self.tableView.delegate = self;
+        [self addSubview:self.tableView];
     }
     return self;
 }
@@ -50,17 +49,11 @@
 {
     super.frame = frame;
     
-    _tableView.frame = self.bounds;
+    self.tableView.frame = self.bounds;
 }
 
 - (void)dealloc
 {
-    [_tableView release];
-    //
-    [_mdicArticleGroup release];
-    [_marrDate release];
-    
-    [super dealloc];
 }
 
 
@@ -70,25 +63,23 @@
 - (void)showLocalArticleList
 {
     [_mdicArticleGroup removeAllObjects];
-    NSMutableArray *marrArticleItem = [[NSMutableArray alloc] init];
+    NSMutableArray *marrArticleItem = [NSMutableArray array];
     [self.dataSource localArticleView:self loadLocalArticleList:marrArticleItem];
     //遍历以分组
     for (NSDictionary *dicItem in marrArticleItem) {
-        NSString *strDate = [dicItem objectForKey:@"date"];
+        NSString *strDate = dicItem[@"date"];
         //找到该日期所属的
-        NSMutableArray *marrArticle = [_mdicArticleGroup objectForKey:strDate];
+        NSMutableArray *marrArticle = _mdicArticleGroup[strDate];
         if (nil == marrArticle) {
-            marrArticle = [[NSMutableArray alloc] init];
+            marrArticle = [NSMutableArray array];
             [_mdicArticleGroup setObject:marrArticle forKey:strDate];
-            [marrArticle release];
         }
         [marrArticle addObject:dicItem];
     }
-    [marrArticleItem release];
     //
     [_marrDate setArray:_mdicArticleGroup.allKeys];
     [_marrDate sortUsingComparator:^NSComparisonResult(id obj1, id obj2){if ([obj1 compare:obj2]==NSOrderedAscending) return YES; else return NO;}];
-    [_tableView reloadData];
+    [self.tableView reloadData];
 }
 
 
@@ -106,18 +97,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSString *strDate = [_marrDate objectAtIndex:section];
-    NSArray *arrArticle = [_mdicArticleGroup objectForKey:strDate];
+    NSString *strDate = _marrDate[section];
+    NSArray *arrArticle = _mdicArticleGroup[strDate];
     return arrArticle.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellId = @"LocalArticleItmeCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellId];
-    if (nil == cell) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellId] autorelease];
-    }
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LocalArticleItmeCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
     if (indexPath.row%2 > 0) {
         cell.contentView.backgroundColor = Color_OddRowCell;
@@ -126,11 +113,11 @@
         cell.contentView.backgroundColor = Color_EvenRowCell;
     }
     //
-    NSString *strDate = [_marrDate objectAtIndex:indexPath.section];
-    NSArray *arrArticle = [_mdicArticleGroup objectForKey:strDate];
+    NSString *strDate = _marrDate[indexPath.section];
+    NSArray *arrArticle = _mdicArticleGroup[strDate];
     NSDictionary *dicItem = [arrArticle objectAtIndex:indexPath.row];
     cell.textLabel.backgroundColor = [UIColor clearColor];
-    cell.textLabel.text = [dicItem objectForKey:@"title"];
+    cell.textLabel.text = dicItem[@"title"];
     
     return cell;
 }
@@ -138,16 +125,16 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //
-    NSString *strDate = [_marrDate objectAtIndex:indexPath.section];
-    NSMutableArray *marrArticle = [_mdicArticleGroup objectForKey:strDate];
-    NSDictionary *dicItem = [marrArticle objectAtIndex:indexPath.row];
-    NSString *articleID = [dicItem objectForKey:@"id"];
+    NSString *strDate = _marrDate[indexPath.section];
+    NSMutableArray *marrArticle = _mdicArticleGroup[strDate];
+    NSDictionary *dicItem = marrArticle[indexPath.row];
+    NSString *articleID = dicItem[@"id"];
     [self.delegate localArticleView:self removeArticleOf:articleID];
     //从数据源中删除
     [marrArticle removeObjectAtIndex:indexPath.row];
     //删除Cell的动画
-    [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                      withRowAnimation:UITableViewRowAnimationTop];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                          withRowAnimation:UITableViewRowAnimationTop];
 }
 
 
@@ -157,10 +144,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //
-    NSString *strDate = [_marrDate objectAtIndex:indexPath.section];
-    NSArray *arrArticle = [_mdicArticleGroup objectForKey:strDate];
+    NSString *strDate = _marrDate[indexPath.section];
+    NSArray *arrArticle = _mdicArticleGroup[strDate];
     NSDictionary *dicItem = [arrArticle objectAtIndex:indexPath.row];
-    NSString *articleID = [dicItem objectForKey:@"id"];
+    NSString *articleID = dicItem[@"id"];
     [self.delegate localArticleView:self showArticleOf:articleID];
 }
 

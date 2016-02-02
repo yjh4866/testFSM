@@ -15,22 +15,17 @@
     
     NSMutableArray *_marrChild;
 }
-
+@property (nonatomic, strong) NSString *nodeName;               // 结点名称
+@property (nonatomic, strong) NSDictionary *nodeAttributesDict; // 结点属性
+@property (nonatomic, strong) NSArray *children;                // 子结点
+@property (nonatomic, strong) NSString *nodeValue;              // 结点值
+@property (nonatomic, assign) NSUInteger nodeDepth;
+@property (nonatomic, strong) XMLNode *nodeParent;              // 父结点
 @end
 
 @implementation XMLNode
 
 #pragma mark Override
-
-- (void)dealloc
-{
-    self.nodeName = nil;
-    self.nodeAttributesDict = nil;
-    self.nodeValue = nil;
-    _nodeParent = nil;
-    
-    [super dealloc];
-}
 
 - (NSString *)description
 {
@@ -39,36 +34,35 @@
     }
     
     NSMutableString *mstrDescription = [NSMutableString string];
-    //表示深度的空格字符
-    NSMutableString *mstrSpace = [[NSMutableString alloc] init];
-    for (int i = 0; i < _nodeDepth; i++) {
+    // 表示深度的空格字符
+    NSMutableString *mstrSpace = [NSMutableString string];
+    for (int i = 0; i < self.nodeDepth; i++) {
         [mstrSpace appendString:@" "];
     }
     [mstrDescription appendString:mstrSpace];
-    //结点的名称
+    // 结点的名称
     [mstrDescription appendFormat:@"\r\n%@<%@", mstrSpace, self.nodeName];
-    //结点的属性
+    // 结点的属性
     NSArray *arrayKeys = [self.nodeAttributesDict allKeys];
     for (NSString *strKey in arrayKeys) {
-        [mstrDescription appendFormat:@" \"%@\"=\"%@\"", strKey, [self.nodeAttributesDict objectForKey:strKey]];
+        [mstrDescription appendFormat:@" \"%@\"=\"%@\"", strKey, self.nodeAttributesDict[strKey]];
     }
     [mstrDescription appendString:@">"];
-    //结点的值
+    // 结点的值
     if (self.nodeValue.length > 0) {
         [mstrDescription appendFormat:@"%@", self.nodeValue];
     }
-    //子结点部分
+    // 子结点部分
     if (_marrChild.count > 0) {
-        //遍历所有子结点
+        // 遍历所有子结点
         for (XMLNode *nodeChild in _marrChild) {
-            //子结点描述串
+            // 子结点描述串
             [mstrDescription appendFormat:@"%@", nodeChild];
         }
         [mstrDescription appendFormat:@"\r\n%@", mstrSpace];
     }
-    //结点的结束
+    // 结点的结束
     [mstrDescription appendFormat:@"</%@>", self.nodeName];
-    [mstrSpace release];
     //
     return mstrDescription;
 }
@@ -88,18 +82,18 @@
 - (void)setNodeParent:(XMLNode *)nodeParent
 {
     _nodeParent = nodeParent;
-    //计算本结点的深度
+    // 计算本结点的深度
     if (nil == nodeParent) {
-        //父结点为nil，当前结点深度为0
-        _nodeDepth = 0;
+        // 父结点为nil，当前结点深度为0
+        self.nodeDepth = 0;
     }
     else {
-        //当前结点深度为父结点深度+1
-        _nodeDepth = nodeParent.nodeDepth + 1;
+        // 当前结点深度为父结点深度+1
+        self.nodeDepth = nodeParent.nodeDepth + 1;
     }
-    //更新子结点的深度
+    // 更新子结点的深度
     for (XMLNode *nodeChild in _marrChild) {
-        //通过设置父结点的方式更新子结点深度
+        // 通过设置父结点的方式更新子结点深度
         nodeChild.nodeParent = self;
     }
 }
@@ -109,14 +103,12 @@
 // 查询指定名称的结点
 - (NSArray *)findNodesWithNodeName:(NSString *)nodeName
 {
-    NSMutableArray *marrNode = [[NSMutableArray alloc] init];
     NSMutableArray *marray = [NSMutableArray array];
     //
-    [marrNode addObject:self];
+    NSMutableArray *marrNode = [NSMutableArray arrayWithObject:self];
     while (marrNode.count > 0) {
-        //取首结点
-        XMLNode *node = [marrNode objectAtIndex:0];
-        [node retain];
+        // 取首结点
+        XMLNode *node = marrNode[0];
         [marrNode removeObjectAtIndex:0];
         //
         if ([node.nodeName isEqualToString:nodeName]) {
@@ -127,9 +119,7 @@
         for (XMLNode *childNode in arrayChild) {
             [marrNode addObject:childNode];
         }
-        [node release];
     }
-    [marrNode release];
     
     return marray;
 }
@@ -137,19 +127,19 @@
 // 清空结点
 - (void)clear
 {
-    //遍历所有子结点
+    // 遍历所有子结点
     NSArray *arrayChild = [self children];
     for (XMLNode *node in arrayChild) {
-        //清空子结点的数据
+        // 清空子结点的数据
         [node clear];
     }
-    //清空当前结点数据
-    _nodeDepth = 0;
+    // 清空当前结点数据
+    self.nodeDepth = 0;
     self.nodeName = nil;
     self.nodeValue = nil;
     self.nodeAttributesDict = nil;
     self.nodeParent = nil;
-    //清空子结点表
+    // 清空子结点表
     [_marrChild removeAllObjects];
 }
 
@@ -170,14 +160,13 @@
 #pragma mark - Interface XMLParser
 
 @interface XMLParser : NSObject <NSXMLParserDelegate> {
-@private
-    
-    XMLNode *_rootNode;
-    XMLNode *_currentNode;
     NSMutableArray *_marrNode;
 }
 
 @property (nonatomic, retain) NSString *nodeName;
+
+@property (nonatomic, strong) XMLNode *rootNode;
+@property (nonatomic, strong) XMLNode *currentNode;
 
 - (XMLNode *)parse:(NSData *)dataXML;
 
@@ -200,31 +189,20 @@
     return self;
 }
 
-- (void)dealloc
-{
-    _rootNode = nil;
-    _currentNode = nil;
-    [_marrNode release];
-    self.nodeName = nil;
-    
-    [super dealloc];
-}
-
 - (XMLNode *)parse:(NSData *)dataXML
 {
-    _rootNode = nil;
-    _currentNode = nil;
+    self.rootNode = nil;
+    self.currentNode = nil;
     self.nodeName = nil;
     //
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:dataXML]; //设置XML数据
+    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:dataXML]; // 设置XML数据
     [parser setShouldProcessNamespaces:NO];
     [parser setShouldReportNamespacePrefixes:NO];
     [parser setShouldResolveExternalEntities:NO];
     [parser setDelegate:self];
     [parser parse];
-    [parser release];
     
-    return _rootNode;
+    return self.rootNode;
 }
 
 - (NSArray *)findXMLNodesWithNodeName:(NSString *)nodeName from:(NSData *)dataXML
@@ -232,13 +210,12 @@
     [_marrNode removeAllObjects];
     self.nodeName = nodeName;
     //
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:dataXML]; //设置XML数据
+    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:dataXML]; // 设置XML数据
     [parser setShouldProcessNamespaces:NO];
     [parser setShouldReportNamespacePrefixes:NO];
     [parser setShouldResolveExternalEntities:NO];
     [parser setDelegate:self];
     [parser parse];
-    [parser release];
     
     return [NSArray arrayWithArray:_marrNode];
 }
@@ -252,29 +229,28 @@
     NSLog(@"element start:%@",elementName);
 #endif
     //
-    if (nil == _rootNode) {
-        //创建根结点
-        _rootNode = [[[XMLNode alloc] init] autorelease];
-        _rootNode.nodeName = elementName;
-        _rootNode.nodeAttributesDict = attributeDict;
-        _rootNode.nodeParent = nil;
+    if (nil == self.rootNode) {
+        // 创建根结点
+        self.rootNode = [[XMLNode alloc] init];
+        self.rootNode.nodeName = elementName;
+        self.rootNode.nodeAttributesDict = attributeDict;
+        self.rootNode.nodeParent = nil;
         //
-        _currentNode = _rootNode;
+        self.currentNode = self.rootNode;
     }
     else {
         //
         XMLNode *nodeChild = [[XMLNode alloc] init];
         nodeChild.nodeName = elementName;
         nodeChild.nodeAttributesDict = attributeDict;
-        nodeChild.nodeParent = _currentNode;
+        nodeChild.nodeParent = self.currentNode;
         //
-        [_currentNode addChildNode:nodeChild];
-        _currentNode = nodeChild;
-        [nodeChild release];
+        [self.currentNode addChildNode:nodeChild];
+        self.currentNode = nodeChild;
     }
     
     if (self.nodeName.length > 0 && [self.nodeName isEqualToString:elementName]) {
-        [_marrNode addObject:_currentNode];
+        [_marrNode addObject:self.currentNode];
     }
 }
 
@@ -286,12 +262,12 @@
 #ifdef DEBUG
     NSLog(@"element value:%@",strValidValue);
 #endif
-    if (nil == _currentNode.nodeValue) {
-        _currentNode.nodeValue = strValidValue;
+    if (nil == self.currentNode.nodeValue) {
+        self.currentNode.nodeValue = strValidValue;
     }
     else {
-        _currentNode.nodeValue = [NSString stringWithFormat:@"%@%@",
-                                  _currentNode.nodeValue, strValidValue];
+        self.currentNode.nodeValue = [NSString stringWithFormat:@"%@%@",
+                                      self.currentNode.nodeValue, strValidValue];
     }
 }
 
@@ -302,7 +278,7 @@
     NSLog(@"element end.");
 #endif
     //
-    _currentNode = _currentNode.nodeParent;
+    self.currentNode = self.currentNode.nodeParent;
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError
@@ -323,7 +299,6 @@
 {
     XMLParser *parser = [[XMLParser alloc] init];
     XMLNode *node = [parser parse:self];
-    [parser release];
     return node;
 }
 
@@ -331,7 +306,6 @@
 {
     XMLParser *parser = [[XMLParser alloc] init];
     NSArray *xmlNodes = [parser findXMLNodesWithNodeName:nodeName from:self];
-    [parser release];
     return xmlNodes;
 }
 

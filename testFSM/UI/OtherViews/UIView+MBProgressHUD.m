@@ -42,8 +42,6 @@
 // 不显示活动指示，只显示文本，指定显示时长
 - (MBProgressHUD *)showTextNoActivity:(NSString *)text timeLength:(CGFloat)time
 {
-    [self hideActivity];
-    //
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.labelText = text;
@@ -55,8 +53,6 @@
 // 显示文本及指定图片，指定显示时长
 - (MBProgressHUD *)showText:(NSString *)text image:(UIImage *)image timeLength:(CGFloat)time
 {
-    [self hideActivity];
-    //
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
     hud.mode = MBProgressHUDModeCustomView;
     hud.labelText = text;
@@ -65,15 +61,12 @@
     //
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     hud.customView = imageView;
-    [imageView release];
     return hud;
 }
 
 // 显示文本及指定图片，指定显示时长
 - (MBProgressHUD *)showText:(NSString *)text imageName:(NSString *)imageName timeLength:(CGFloat)time
 {
-    [self hideActivity];
-    //
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self animated:YES];
     hud.mode = MBProgressHUDModeCustomView;
     hud.labelText = text;
@@ -83,7 +76,6 @@
     UIImage *image = [UIImage imageNamed:imageName];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     hud.customView = imageView;
-    [imageView release];
     return hud;
 }
 

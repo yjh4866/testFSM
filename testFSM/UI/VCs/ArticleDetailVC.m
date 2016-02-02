@@ -13,12 +13,8 @@
 #import "UIMacro.h"
 #import "CoreEngine.h"
 
-@interface ArticleDetailVC () <ArticleDetailViewDataSource,
-ArticleDetailViewDelegate> {
-    
-    ArticleDetailView *_articleDetailView;
-}
-
+@interface ArticleDetailVC () <ArticleDetailViewDataSource, ArticleDetailViewDelegate>
+@property (nonatomic, strong) ArticleDetailView *articleDetailView;
 @end
 
 @implementation ArticleDetailVC
@@ -42,25 +38,16 @@ ArticleDetailViewDelegate> {
     }
     
     //文章内容
-    if (nil == _articleDetailView) {
-        _articleDetailView = [[ArticleDetailView alloc] initWithFrame:self.view.bounds];
-        _articleDetailView.fontSize = 14.0f;
-        _articleDetailView.dataSource = self;
-        _articleDetailView.delegate = self;
+    if (nil == self.articleDetailView) {
+        self.articleDetailView = [[ArticleDetailView alloc] initWithFrame:self.view.bounds];
+        self.articleDetailView.fontSize = 14.0f;
+        self.articleDetailView.dataSource = self;
+        self.articleDetailView.delegate = self;
     }
-    [self.view addSubview:_articleDetailView];
-    
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    [defaultCenter removeObserver:self];
-    [defaultCenter addObserver:self selector:@selector(notifPictureFileSize:)
-                          name:NetDownloadPicFileSize object:nil];
-    [defaultCenter addObserver:self selector:@selector(notifPictureReceivedSize:)
-                          name:NetDownloadPicReceivedSize object:nil];
-    [defaultCenter addObserver:self selector:@selector(notifDownloadPictureSuccess:)
-                          name:NetDownloadPictureSuccess object:nil];
+    [self.view addSubview:self.articleDetailView];
     
     //
-    _articleDetailView.articleID = self.articleID;
+    self.articleDetailView.articleID = self.articleID;
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,22 +56,15 @@ ArticleDetailViewDelegate> {
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     
-    _articleDetailView.frame = self.view.bounds;
+    self.articleDetailView.frame = self.view.bounds;
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    //
-    [_articleDetailView release];
-    //
-    self.articleID = nil;
-    
-    [super dealloc];
 }
 
 
@@ -101,7 +81,7 @@ ArticleDetailViewDelegate> {
     }
     //提示错误
     NSString *msg = notif.userInfo[@"msg"];
-    [_articleDetailView articleDetailFailureWithMsg:msg];
+    [self.articleDetailView articleDetailFailureWithMsg:msg];
 }
 
 - (void)notifArticleDetailSuccess:(NSNotification *)notif
@@ -111,30 +91,7 @@ ArticleDetailViewDelegate> {
         return;
     }
     //
-    [_articleDetailView articleDetailSuccess];
-}
-
-- (void)notifPictureFileSize:(NSNotification *)notif
-{
-    NSString *url = notif.userInfo[@"url"];
-    NSUInteger fileSize = [notif.userInfo[@"filesize"] intValue];
-    //
-    [_articleDetailView setPictureSize:fileSize withUrl:url];
-}
-
-- (void)notifPictureReceivedSize:(NSNotification *)notif
-{
-    NSString *url = notif.userInfo[@"url"];
-    CGFloat progress = [notif.userInfo[@"progress"] intValue];
-    //
-    [_articleDetailView setProgressOfDownloadPicture:progress withUrl:url];
-}
-
-- (void)notifDownloadPictureSuccess:(NSNotification *)notif
-{
-    NSString *url = notif.userInfo[@"url"];
-    //
-    [_articleDetailView downloadPictureSuccessWithUrl:url];
+    [self.articleDetailView articleDetailSuccess];
 }
 
 
@@ -149,16 +106,6 @@ ArticleDetailViewDelegate> {
     }
 }
 
-// 获取指定url的图片
-- (UIImage *)articleDetailView:(ArticleDetailView *)articleDetailView
-          getArticlePicWithUrl:(NSString *)url
-{
-    if ([self.dataSource respondsToSelector:@selector(articleDetailVC:getArticlePicWithUrl:)]) {
-        return [self.dataSource articleDetailVC:self getArticlePicWithUrl:url];
-    }
-    return nil;
-}
-
 
 #pragma mark - ArticleDetailViewDelegate
 
@@ -171,16 +118,6 @@ ArticleDetailViewDelegate> {
 // 获取文章详情
 - (void)articleDetailViewGetDetail:(ArticleDetailView *)articleDetailView
 {
-}
-
-// 下载图片
-- (void)articleDetailView:(ArticleDetailView *)articleDetailView
-  forceDownloadArticlePic:(BOOL)force withUrl:(NSString *)url
-{
-    if ([self.delegate respondsToSelector:@selector(articleDetailVC:forceDownloadArticlePic:withUrl:)]) {
-        [self.delegate articleDetailVC:self forceDownloadArticlePic:force
-                               withUrl:url];
-    }
 }
 
 // 显示指定url的Web页面

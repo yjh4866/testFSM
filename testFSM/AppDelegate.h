@@ -12,12 +12,7 @@
 
 @class CoreEngine;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate> {
-@private
-    //
-    UIEngine *_engineUI;
-    CoreEngine *_engineCore;
-}
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

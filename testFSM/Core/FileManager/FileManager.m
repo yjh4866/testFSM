@@ -52,7 +52,7 @@
     for (NSString *fileName in arrFileName) {
         NSString *filePath = [path stringByAppendingPathComponent:fileName];
         NSDictionary *dicAttributes = [fileManager attributesOfItemAtPath:filePath error:nil];
-        capacity += [[dicAttributes objectForKey:NSFileSize] intValue];
+        capacity += [dicAttributes[NSFileSize] intValue];
     }
     return capacity;
 }

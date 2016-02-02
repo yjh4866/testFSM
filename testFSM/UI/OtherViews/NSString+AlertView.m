@@ -36,7 +36,6 @@
                                               cancelButtonTitle:nil 
                                               otherButtonTitles:@"确定", nil];
     [alertView show];
-    [alertView release];
 }
 
 @end

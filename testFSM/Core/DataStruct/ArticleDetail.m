@@ -30,19 +30,6 @@
 
 - (void)dealloc
 {
-    self.articleID = nil;
-    self.title = nil;
-    self.body = nil;
-    self.publishTime = nil;
-    self.updateTime = nil;
-    self.authorID = nil;
-    self.author = nil;
-    self.tags = nil;
-    self.articleUrl = nil;
-    self.authorBlogUrl = nil;
-    self.hits = nil;
-    
-    [super dealloc];
 }
 
 @end

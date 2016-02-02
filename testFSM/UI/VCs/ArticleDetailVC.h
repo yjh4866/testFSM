@@ -30,19 +30,11 @@
 - (void)articleDetailVC:(ArticleDetailVC *)articleVC
       loadArticleDetail:(ArticleDetail *)articleDetail;
 
-// 获取指定url的图片
-- (UIImage *)articleDetailVC:(ArticleDetailVC *)articleVC
-        getArticlePicWithUrl:(NSString *)url;
-
 @end
 
 
 @protocol ArticleDetailVCDelegate <NSObject>
 
 @optional
-
-// 下载图片
-- (void)articleDetailVC:(ArticleDetailVC *)articleVC
-forceDownloadArticlePic:(BOOL)force withUrl:(NSString *)url;
 
 @end

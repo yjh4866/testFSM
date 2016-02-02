@@ -29,8 +29,6 @@
 	
     sqlite3_finalize(_stmt);
     [DBConnection closeDatabase];
-	
-    [super dealloc];
 }
 
 - (int)step {

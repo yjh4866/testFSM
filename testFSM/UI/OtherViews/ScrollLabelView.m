@@ -11,17 +11,13 @@
 
 @interface ScrollLabelView () {
     
-    UILabel *_labelText;
-    
     CGFloat _widthText;
     NSUInteger _scrollState;
 }
-
+@property (nonatomic, strong) UILabel *labelText;
 @end
 
 @implementation ScrollLabelView
-
-@synthesize labelText = _labelText;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -30,10 +26,10 @@
         // Initialization code
         self.clipsToBounds = YES;
         //
-        _labelText = [[UILabel alloc] initWithFrame:self.bounds];
-        _labelText.backgroundColor = [UIColor clearColor];
-        _labelText.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
-        [self addSubview:_labelText];
+        self.labelText = [[UILabel alloc] initWithFrame:self.bounds];
+        self.labelText.backgroundColor = [UIColor clearColor];
+        self.labelText.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
+        [self addSubview:self.labelText];
         //
         [self addObserver:self forKeyPath:@"self.labelText.text"
                   options:NSKeyValueObservingOptionNew context:nil];
@@ -53,12 +49,8 @@
 - (void)dealloc
 {
     [self removeObserver:self forKeyPath:@"self.labelText.text"];
-    //删除动画
-    [_labelText.layer removeAllAnimations];
-    //
-    [_labelText release];
-    
-    [super dealloc];
+    // 删除动画
+    [self.labelText.layer removeAllAnimations];
 }
 
 
@@ -70,7 +62,7 @@
         _widthText = [self.labelText.text sizeWithFont:self.labelText.font].width;
         CGRect frameLabel = self.bounds;
         frameLabel.size.width = _widthText;
-        _labelText.frame = frameLabel;
+        self.labelText.frame = frameLabel;
         //
         _scrollState = 0;
         if (_widthText > self.bounds.size.width) {
@@ -89,7 +81,7 @@
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     //删除原有动画
-    [_labelText.layer removeAllAnimations];
+    [self.labelText.layer removeAllAnimations];
     if (NO == flag) {
         return;
     }
@@ -102,7 +94,7 @@
         {
             CABasicAnimation *animationSleepAtHead = [self moveFrom:NSPos0 to:NSPos0 during:2.0f];
             animationSleepAtHead.delegate = self;
-            [_labelText.layer addAnimation:animationSleepAtHead forKey:@"sleepAtHead"];
+            [self.labelText.layer addAnimation:animationSleepAtHead forKey:@"sleepAtHead"];
             _scrollState = 1;
         }
             break;
@@ -110,7 +102,7 @@
         {
             CABasicAnimation *animationScrollToTail = [self moveFrom:NSPos0 to:NSPos1 during:during];
             animationScrollToTail.delegate = self;
-            [_labelText.layer addAnimation:animationScrollToTail forKey:@"scrollToTail"];
+            [self.labelText.layer addAnimation:animationScrollToTail forKey:@"scrollToTail"];
             _scrollState = 2;
         }
             break;
@@ -118,7 +110,7 @@
         {
             CABasicAnimation *animationSleepAtTail = [self moveFrom:NSPos1 to:NSPos1 during:2.0f];
             animationSleepAtTail.delegate = self;
-            [_labelText.layer addAnimation:animationSleepAtTail forKey:@"sleepAtTail"];
+            [self.labelText.layer addAnimation:animationSleepAtTail forKey:@"sleepAtTail"];
             _scrollState = 3;
         }
             break;
@@ -126,7 +118,7 @@
         {
             CABasicAnimation *animationScrollToHead = [self moveFrom:NSPos1 to:NSPos0 during:during];
             animationScrollToHead.delegate = self;
-            [_labelText.layer addAnimation:animationScrollToHead forKey:@"scrollToHead"];
+            [self.labelText.layer addAnimation:animationScrollToHead forKey:@"scrollToHead"];
             _scrollState = 0;
         }
             break;

@@ -7,6 +7,7 @@
 //
 
 #import "FileManager+Picture.h"
+#import "NBLHTTPFileManager.h"
 
 #define PicPath(picUrl)  [FileManager picturePathOfUrl:picUrl]
 
@@ -29,21 +30,8 @@
 // 获取指定url的图片保存路径
 + (NSString *)picturePathOfUrl:(NSString *)picUrl
 {
-    //拼接图片文件名
-    NSCharacterSet *setChars = [NSCharacterSet characterSetWithCharactersInString:@":/."];
-    NSArray *components = [picUrl componentsSeparatedByCharactersInSet:setChars];
-    NSMutableString *mstrFileName = [NSMutableString string];
-    for (NSString *component in components) {
-        [mstrFileName appendString:component];
-        [mstrFileName appendString:@"_"];
-    }
-    //拼接后缀
-    [mstrFileName appendFormat:@".%@", [[picUrl pathExtension] lowercaseString]];
-    //拼接图片文件路径
-    NSString *picPath = [NSString stringWithFormat:@"%@/%@",
-                         [FileManager cachePathForPicture], mstrFileName];
-    //
-    return picPath;
+    // 拼接图片文件路径
+    return [[FileManager cachePathForPicture] stringByAppendingPathComponent:transferFileNameFromURL(picUrl)];
 }
 
 // 将图片数据保存到指定路径
